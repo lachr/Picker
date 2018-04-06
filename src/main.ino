@@ -26,7 +26,7 @@ enum jobs {
   JOB_DROP_R
 };
 
-int moduleJob = JOB_TEST;
+int moduleJob = JOB_INIT;
 
 // Initialise Variables -------------------------
 const int stepsPerRevolution = 64;
@@ -40,9 +40,9 @@ int sensorRead = A1;
 // END Initialize Variables ---------------------
 
 void setup() {
-  while (!Serial); { // required for Flora & Micro
-    delay(500);
-  }
+  // while (!Serial); { // required for Flora & Micro
+  //   delay(500);
+  // }
 
   pinMode(photoDiode,OUTPUT);  
   digitalWrite(photoDiode,HIGH);   
@@ -69,9 +69,13 @@ void loop() {
 
   if(moduleJob == JOB_INIT)
   { 
-    motor.setSpeed(300);
+    motor.setSpeed(150);
     motor.setRamp(false);
     while(!isInterrupted())
+    {
+      motor.step(2);
+    }
+    while(isInterrupted())
     {
       motor.step(2);
     }
@@ -90,7 +94,7 @@ void loop() {
 
   if(moduleJob == JOB_PICKUP)
   { 
-    motor.setSpeed(300);
+    motor.setSpeed(150);
     motor.setRamp(true);
     motor.toStep(1563, true);
     delay(10);
@@ -106,10 +110,23 @@ void loop() {
     motor.setSpeed(300);
     motor.setRamp(false, true);
     motor.toStep(0, true);
+    motor.toStep(1024, false);
     sendBLE("success(1)");
     moduleJob = JOB_IDLE;
   }
-  
+
+  if(moduleJob == JOB_DROP_R)
+  { 
+    motor.setSpeed(850);
+    motor.setRamp(true, false);
+    motor.toStep(512, true);
+    motor.setSpeed(300);
+    motor.setRamp(false, true);
+    motor.toStep(0, false);
+    motor.toStep(1024, true);
+    sendBLE("success(1)");
+    moduleJob = JOB_IDLE;
+  }
 
   delay(10);
 }
@@ -117,7 +134,7 @@ void loop() {
 
 
 bool isInterrupted() {
-  return (analogRead(sensorRead) >= 600);
+  return (analogRead(sensorRead) >= 500);
 }
 
 
