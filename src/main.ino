@@ -141,6 +141,9 @@ bool isInterrupted() {
 
 // Handle API commands
 void handleApiCommands(String command) {
+  if (command == "init();") {
+    moduleJob = JOB_INIT;
+  }
   if (command == "pickup();") {
     moduleJob = JOB_PICKUP;
   }
