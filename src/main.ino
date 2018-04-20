@@ -33,8 +33,6 @@ const int stepsPerRevolution = 64;
 const int steps = 2048;
 RampStepper motor(stepsPerRevolution, 9, 11, 10, 12);
 
-int position = 0;
-
 int photoDiode = 6;
 int sensorRead = A1;
 // END Initialize Variables ---------------------
@@ -99,6 +97,13 @@ void loop() {
     motor.toStep(1563, true);
     delay(10);
     motor.toStep(0, true);
+    delay(500);
+    if(isInterrupted()){
+      sendBLE("pickupSuccess(1)");
+    } else {
+      sendBLE("pickupSuccess(0)");
+    }
+    delay(500);
     moduleJob = JOB_IDLE;
   }
 
@@ -110,8 +115,14 @@ void loop() {
     motor.setSpeed(300);
     motor.setRamp(false, true);
     motor.toStep(0, true);
+    delay(500);
+    if(isInterrupted()){
+      sendBLE("dropSuccess(0)");
+    } else {
+      sendBLE("dropSuccess(1)");
+    }
+    delay(500);
     motor.toStep(1024, false);
-    sendBLE("success(1)");
     moduleJob = JOB_IDLE;
   }
 
@@ -123,8 +134,14 @@ void loop() {
     motor.setSpeed(300);
     motor.setRamp(false, true);
     motor.toStep(0, false);
+    delay(500);
+    if(isInterrupted()){
+      sendBLE("dropSuccess(0)");
+    } else {
+      sendBLE("dropSuccess(1)");
+    }
+    delay(500);
     motor.toStep(1024, true);
-    sendBLE("success(1)");
     moduleJob = JOB_IDLE;
   }
 
