@@ -158,6 +158,7 @@ bool isInterrupted() {
 
 // Handle API commands
 void handleApiCommands(String command) {
+  Serial.println(command);
   if (command == "init();") {
     moduleJob = JOB_INIT;
   }
@@ -167,7 +168,7 @@ void handleApiCommands(String command) {
   if (command == "drop(1);") {
     moduleJob = JOB_DROP_R;
   }
-  if (command == "drop(-1);") {
+  if (command == "drop(0);") {
     moduleJob = JOB_DROP_L;
   }
 }
@@ -226,6 +227,7 @@ void initBLE() {
   Serial.println("Requesting Bluefruit info:");
   /* Print Bluefruit information */
   ble.info();
+  ble.println("AT+GAPDEVNAME=ferrari");
 
   Serial.println(F("Please use Adafruit Bluefruit LE app to connect in UART mode"));
   Serial.println(F("Then Enter characters to send to Bluefruit"));
