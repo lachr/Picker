@@ -111,10 +111,10 @@ void loop() {
   { 
     motor.setSpeed(850);
     motor.setRamp(true, false);
-    motor.toStep(1536, false);
+    motor.toStep(1536, true);
     motor.setSpeed(300);
-    motor.setRamp(false, true);
-    motor.toStep(0, true);
+    motor.setRamp(false, false);
+    motor.toStep(1024, false);
     delay(500);
     if(isInterrupted()){
       sendBLE("dropSuccess(0)");
@@ -122,7 +122,6 @@ void loop() {
       sendBLE("dropSuccess(1)");
     }
     delay(500);
-    motor.toStep(1024, false);
     moduleJob = JOB_IDLE;
   }
 
@@ -133,7 +132,7 @@ void loop() {
     motor.toStep(512, true);
     motor.setSpeed(300);
     motor.setRamp(false, true);
-    motor.toStep(0, false);
+    motor.toStep(1024, false);
     delay(500);
     if(isInterrupted()){
       sendBLE("dropSuccess(0)");
