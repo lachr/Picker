@@ -1,0 +1,449 @@
+[{
+    "id": "555e29cf.f828f8",
+    "type": "ble uart",
+    "z": "71504765.38ec38",
+    "name": "ferrari",
+    "localName": "ferrari",
+    "x": 410,
+    "y": 300,
+    "wires": [
+        ["5f70b69d.7ca5d8"]
+    ]
+}, {
+    "id": "b50e35e0.3063f8",
+    "type": "inject",
+    "z": "71504765.38ec38",
+    "name": "",
+    "topic": "",
+    "payload": "pickup();",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 200,
+    "y": 260,
+    "wires": [
+        ["555e29cf.f828f8", "eb6c1833.008478"]
+    ]
+}, {
+    "id": "f2bcfd43.817d9",
+    "type": "inject",
+    "z": "71504765.38ec38",
+    "name": "",
+    "topic": "",
+    "payload": "drop(1);",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 190,
+    "y": 300,
+    "wires": [
+        ["555e29cf.f828f8", "157527e2.1f31d8"]
+    ]
+}, {
+    "id": "eca761a0.b898a",
+    "type": "inject",
+    "z": "71504765.38ec38",
+    "name": "",
+    "topic": "",
+    "payload": "drop(0);",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 190,
+    "y": 340,
+    "wires": [
+        ["555e29cf.f828f8"]
+    ]
+}, {
+    "id": "acbb5d7b.05912",
+    "type": "inject",
+    "z": "71504765.38ec38",
+    "name": "",
+    "topic": "",
+    "payload": "init();",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 190,
+    "y": 380,
+    "wires": [
+        ["555e29cf.f828f8"]
+    ]
+}, {
+    "id": "5f70b69d.7ca5d8",
+    "type": "function",
+    "z": "71504765.38ec38",
+    "name": "",
+    "func": "msg.payload=String.fromCharCode.apply(String, msg.payload);\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 530,
+    "y": 300,
+    "wires": [
+        ["4ab3143.571bcec", "c2ba81b3.9a036"]
+    ]
+}, {
+    "id": "4ab3143.571bcec",
+    "type": "debug",
+    "z": "71504765.38ec38",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "x": 690,
+    "y": 300,
+    "wires": []
+}, {
+    "id": "e4b9a724.8cff98",
+    "type": "ui_button",
+    "z": "71504765.38ec38",
+    "name": "",
+    "group": "e5cf2dcd.35724",
+    "order": 0,
+    "width": 0,
+    "height": 0,
+    "passthru": false,
+    "label": "PickUp",
+    "color": "",
+    "bgcolor": "",
+    "icon": "",
+    "payload": "pickup();",
+    "payloadType": "str",
+    "topic": "",
+    "x": 200,
+    "y": 440,
+    "wires": [
+        ["555e29cf.f828f8", "a9f83267.b758c"]
+    ]
+}, {
+    "id": "a2d37823.c38448",
+    "type": "ui_button",
+    "z": "71504765.38ec38",
+    "name": "",
+    "group": "e5cf2dcd.35724",
+    "order": 0,
+    "width": 0,
+    "height": 0,
+    "passthru": false,
+    "label": "Drop Left",
+    "color": "",
+    "bgcolor": "",
+    "icon": "",
+    "payload": "drop(0);",
+    "payloadType": "str",
+    "topic": "",
+    "x": 200,
+    "y": 480,
+    "wires": [
+        ["555e29cf.f828f8"]
+    ]
+}, {
+    "id": "6f5455d7.65f1ec",
+    "type": "ui_button",
+    "z": "71504765.38ec38",
+    "name": "",
+    "group": "e5cf2dcd.35724",
+    "order": 0,
+    "width": 0,
+    "height": 0,
+    "passthru": false,
+    "label": "Drop Right",
+    "color": "",
+    "bgcolor": "",
+    "icon": "",
+    "payload": "drop(1);",
+    "payloadType": "str",
+    "topic": "",
+    "x": 210,
+    "y": 520,
+    "wires": [
+        ["555e29cf.f828f8"]
+    ]
+}, {
+    "id": "d8f75eb2.12662",
+    "type": "ui_button",
+    "z": "71504765.38ec38",
+    "name": "",
+    "group": "e5cf2dcd.35724",
+    "order": 0,
+    "width": 0,
+    "height": 0,
+    "passthru": false,
+    "label": "Reset Position",
+    "color": "",
+    "bgcolor": "",
+    "icon": "",
+    "payload": "init();",
+    "payloadType": "str",
+    "topic": "",
+    "x": 220,
+    "y": 560,
+    "wires": [
+        ["555e29cf.f828f8"]
+    ]
+}, {
+    "id": "c2ba81b3.9a036",
+    "type": "function",
+    "z": "71504765.38ec38",
+    "name": "",
+    "func": "if(msg.payload == \"dropSuccess(1)\"){\n    global.set('Status','Ferrari Startklar');\n    msg.payload = {\n        \"id\":762599,\n        \"dropsuccess\":true,\n    }\n}\nif(msg.payload == \"dropSuccess(0)\"){\n    global.set('Status','Aufladen fehlgeschlagen');\n    msg.payload = {\n        \"id\":762599,\n        \"dropsuccess\":false,\n    }\n}\nif(msg.payload == \"pickupSuccess(1)\"){\n    global.set('Status','Bereit zum abladen');\n    msg.payload = {\n        \"id\":762599,\n        \"pickupsuccess\":true,\n    }\n}\nif(msg.payload == \"pickupSuccess(0)\"){\n    global.set('Status','Aufladen fehlgeschlagen');\n    msg.payload = {\n        \"id\":762599,\n        \"pickupsuccess\":true,\n    }\n}\nreturn msg;\n",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 670,
+    "y": 340,
+    "wires": [
+        ["97f7eeaa.cfcb6"]
+    ]
+}, {
+    "id": "97f7eeaa.cfcb6",
+    "type": "http request",
+    "z": "71504765.38ec38",
+    "name": "",
+    "method": "POST",
+    "ret": "obj",
+    "url": "http://152.96.235.226:1880/update",
+    "tls": "",
+    "x": 930,
+    "y": 340,
+    "wires": [
+        ["1b32af97.6e1b4", "789bc620.2b6398"]
+    ]
+}, {
+    "id": "1b32af97.6e1b4",
+    "type": "debug",
+    "z": "71504765.38ec38",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "x": 1090,
+    "y": 340,
+    "wires": []
+}, {
+    "id": "789bc620.2b6398",
+    "type": "http request",
+    "z": "71504765.38ec38",
+    "name": "",
+    "method": "GET",
+    "ret": "obj",
+    "url": "http://192.168.1.7:1880/id/762599",
+    "tls": "",
+    "x": 650,
+    "y": 620,
+    "wires": [
+        ["2f9017ec.805928", "99fa9de3.8e125", "c0c5ec0c.81a6e", "c822533a.cdb3b"]
+    ]
+}, {
+    "id": "b157254c.b692e8",
+    "type": "ui_template",
+    "z": "71504765.38ec38",
+    "group": "e5cf2dcd.35724",
+    "name": "",
+    "order": 0,
+    "width": 0,
+    "height": 0,
+    "format": "<div>\n<h1>Statistics</h1>\n\n<b>ID: </b>{{msg.payload.id}}\n<br/>\n<b>Successfull pickups: </b>{{msg.payload.pickupsuccess}} / {{msg.payload.count}}\n<br/>\n<b>Sucessfull drops: </b>{{msg.payload.dropsuccess}} / {{msg.payload.count}}\n<br/>\n<b>Status: </b>{{msg.payload.machinestatus}} \n<br/>\n\n</div>",
+    "storeOutMessages": true,
+    "fwdInMessages": true,
+    "templateScope": "local",
+    "x": 980,
+    "y": 620,
+    "wires": [
+        ["c822533a.cdb3b"]
+    ]
+}, {
+    "id": "e51c5b2f.de52e8",
+    "type": "inject",
+    "z": "71504765.38ec38",
+    "name": "",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": true,
+    "onceDelay": 0.1,
+    "x": 210,
+    "y": 620,
+    "wires": [
+        ["ede43003.cbfc3"]
+    ]
+}, {
+    "id": "2f9017ec.805928",
+    "type": "ui_gauge",
+    "z": "71504765.38ec38",
+    "name": "pickuprate",
+    "group": "e5cf2dcd.35724",
+    "order": 0,
+    "width": 0,
+    "height": 0,
+    "gtype": "gage",
+    "title": "Pickuprate",
+    "label": "%",
+    "format": "{{msg.payload.pickuprate}}",
+    "min": 0,
+    "max": "1",
+    "colors": ["#ff0000", "#e6e600", "#00ff40"],
+    "seg1": "",
+    "seg2": "",
+    "x": 850,
+    "y": 660,
+    "wires": []
+}, {
+    "id": "c822533a.cdb3b",
+    "type": "debug",
+    "z": "71504765.38ec38",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "x": 1030,
+    "y": 480,
+    "wires": []
+}, {
+    "id": "99fa9de3.8e125",
+    "type": "ui_gauge",
+    "z": "71504765.38ec38",
+    "name": "droprate",
+    "group": "e5cf2dcd.35724",
+    "order": 0,
+    "width": 0,
+    "height": 0,
+    "gtype": "gage",
+    "title": "droprate",
+    "label": "%",
+    "format": "{{msg.payload.droprate}}",
+    "min": 0,
+    "max": "1",
+    "colors": ["#ff0000", "#e6e600", "#00ff40"],
+    "seg1": "",
+    "seg2": "",
+    "x": 840,
+    "y": 700,
+    "wires": []
+}, {
+    "id": "ede43003.cbfc3",
+    "type": "function",
+    "z": "71504765.38ec38",
+    "name": "",
+    "func": "\n\nglobal.set(\"Status\",\"Ferrari startklar\");\n",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 390,
+    "y": 620,
+    "wires": [
+        ["789bc620.2b6398"]
+    ]
+}, {
+    "id": "eb6c1833.008478",
+    "type": "function",
+    "z": "71504765.38ec38",
+    "name": "lädt auf ...",
+    "func": "\n    global.set('Status','lädt auf ...');\n  \n",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 460,
+    "y": 420,
+    "wires": [
+        []
+    ]
+}, {
+    "id": "157527e2.1f31d8",
+    "type": "function",
+    "z": "71504765.38ec38",
+    "name": "lädt ab ...",
+    "func": "\n\n    global.set('Status','lädt ab ...');",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 460,
+    "y": 460,
+    "wires": [
+        []
+    ]
+}, {
+    "id": "c0c5ec0c.81a6e",
+    "type": "function",
+    "z": "71504765.38ec38",
+    "name": "ms",
+    "func": "msg.payload.machinestatus = global.get(\"Status\");\nnode.warn(msg.payload.machinestatus)\nnode.warn(global.get(\"Status\"))\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 830,
+    "y": 620,
+    "wires": [
+        ["b157254c.b692e8"]
+    ]
+}, {
+    "id": "50aa8384.555a6c",
+    "type": "http request",
+    "z": "71504765.38ec38",
+    "name": "",
+    "method": "GET",
+    "ret": "obj",
+    "url": "http://192.168.1.7:1880/id/762599",
+    "tls": "",
+    "x": 430,
+    "y": 700,
+    "wires": [
+        ["a9f83267.b758c"]
+    ]
+}, {
+    "id": "fc143276.45a43",
+    "type": "inject",
+    "z": "71504765.38ec38",
+    "name": "",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 263,
+    "y": 712,
+    "wires": [
+        ["50aa8384.555a6c"]
+    ]
+}, {
+    "id": "a9f83267.b758c",
+    "type": "debug",
+    "z": "71504765.38ec38",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "x": 591,
+    "y": 723,
+    "wires": []
+}, {
+    "id": "e5cf2dcd.35724",
+    "type": "ui_group",
+    "z": "",
+    "name": "Ferrari",
+    "tab": "90fd5d73.8efcb",
+    "disp": true,
+    "width": "6",
+    "collapse": false
+}, {
+    "id": "90fd5d73.8efcb",
+    "type": "ui_tab",
+    "z": "",
+    "name": "FerrariUI",
+    "icon": "dashboard"
+}]
